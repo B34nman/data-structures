@@ -1,9 +1,0 @@
-﻿  ADTFuncs.cpp
-C:\Users\1amaj\source\repos\Program1\Program1\HEADERS\ADTFuncs.h(25,14): error C2143: syntax error: missing ';' before '*'
-C:\Users\1amaj\source\repos\Program1\Program1\HEADERS\ADTFuncs.h(25,14): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\Users\1amaj\source\repos\Program1\Program1\HEADERS\ADTFuncs.h(25,27): error C2238: unexpected token(s) preceding ';'
-  main.cpp
-C:\Users\1amaj\source\repos\Program1\Program1\HEADERS\ADTFuncs.h(25,14): error C2143: syntax error: missing ';' before '*'
-C:\Users\1amaj\source\repos\Program1\Program1\HEADERS\ADTFuncs.h(25,14): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\Users\1amaj\source\repos\Program1\Program1\HEADERS\ADTFuncs.h(25,27): error C2238: unexpected token(s) preceding ';'
-  Generating Code...
