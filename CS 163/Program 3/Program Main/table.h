@@ -50,7 +50,7 @@ class table
         //retrieve all collectables with a certain name and insert them into an array
         int retrieve_by_name(char * name_to_find, collectable * array); 
 
-        //display all information for a match by year
+        //removes given collectible from the table.
         //takes in the name of the collectible to remove 
         int remove_collectable(char * name_to_find); //remove collectable by name
 

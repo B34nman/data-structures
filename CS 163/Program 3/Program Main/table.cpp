@@ -220,9 +220,8 @@ int table::retrieve_by_name(char * name_to_find, collectable * array)
     return i;
 }
 
-
-//display all information for a match by year
-//takes in the name of the collectible to remove 
+// removes given collectible from the table.
+// takes in the name of the collectible to remove
 int table::remove_collectable(char * name_to_find)
 {
     int index = hash_function(name_to_find);
