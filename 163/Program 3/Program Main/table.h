@@ -62,7 +62,8 @@ class table
 
         //hash function, returns the index of the hash table
         int hash_function(char * key) const; //hash function
-	    
+        int display(node * head, char * name_to_find) const; //display function
+
         int hash_table_size; //size of hash table
         node ** hash_table;  //a dynamically allocated array of head pointers
               

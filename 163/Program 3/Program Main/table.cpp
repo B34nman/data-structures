@@ -157,7 +157,7 @@ int table::display(char * name_to_find) const
         return 0;
     }
     node * temp = hash_table[index];
-    while (temp != NULL)
+    /*while (temp != NULL)
     {
         if (strcmp(temp->entry.name, name_to_find) == 0)
         {
@@ -169,7 +169,25 @@ int table::display(char * name_to_find) const
         }
         temp = temp->next;
     }
-    return 1;
+    */
+    return display(temp, name_to_find);
+}
+int table::display(node * head, char * name_to_find) const
+{
+    if (head == NULL)
+    {
+        return 0;
+    }
+    if (strcmp(head->entry.name, name_to_find) == 0)
+    {
+        cout << "Name of collectible: " << head->entry.name << endl;
+        cout << "Type of collectible: " << head->entry.type << endl;
+        cout << "Year of creation: " << head->entry.year << endl;  
+        cout << "Description: " << head->entry.description << endl;
+        cout << "Worth: " << head->entry.worth << endl; 
+        return 1;
+    }
+    return display(head->next, name_to_find);
 }
 
 // retrieve (not display) all information for a match by type
