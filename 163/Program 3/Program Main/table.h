@@ -43,6 +43,7 @@ class table
 
         //search function, searches for a collectable in the table and displays it
         //takes in the name of the collectible to display 
+        //this is the wrapper function for the private function below
         int display(char * name_to_find) const; 
 
         //retrieve (not display) all information for a match by type 

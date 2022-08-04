@@ -157,19 +157,6 @@ int table::display(char * name_to_find) const
         return 0;
     }
     node * temp = hash_table[index];
-    /*while (temp != NULL)
-    {
-        if (strcmp(temp->entry.name, name_to_find) == 0)
-        {
-            cout << "Name of collectible: " << temp->entry.name << endl;
-            cout << "Type of collectible: " << temp->entry.type << endl;
-            cout << "Year of creation: " << temp->entry.year << endl;  
-            cout << "Description: " << temp->entry.description << endl;
-            cout << "Worth: " << temp->entry.worth << endl; 
-        }
-        temp = temp->next;
-    }
-    */
     return display(temp, name_to_find);
 }
 int table::display(node * head, char * name_to_find) const
