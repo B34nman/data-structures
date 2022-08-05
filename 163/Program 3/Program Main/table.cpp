@@ -66,9 +66,6 @@ int table::add_collectable(char * key_value, const collectable & to_add)
 {
     int index = hash_function(key_value);
 
-    if(hash_table[index] != NULL)
-        cout << "Collision detected.\n";
-
     //copies data into new node at the head of the linear linked list at that point in the array 
     node * new_node = new node;
     new_node->entry.name = new char[strlen(to_add.name) + 1];
@@ -102,8 +99,6 @@ int table::load(char * filename)
     char description[100];
     int worth;
     int numLines = 0;
-    
-    cout << "Loading data from file. \n";
     
     infile.get(name, 100, '|'); infile.ignore(100, '|'); 
     
