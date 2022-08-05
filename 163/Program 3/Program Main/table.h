@@ -7,6 +7,10 @@
 //this file is the header for our ADT. It is made to declare all functions, structs,
 //classes, etc. The content of the functions will go inside the .cpp file, but this 
 //header allows us to condense all our declarations down. 
+//for all functions that take a node input, there is a public wrapper function, and the main function
+//is placed in the private section, so the client does not have access to the node pointer.
+//this is done to prevent the client from accessing the node pointer directly.
+//there are two structs, one for a node, and one for the collectable information.
 
 //struct of items, contains name, type, year it was created, description, and worth.
 struct collectable

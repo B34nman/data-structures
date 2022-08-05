@@ -6,8 +6,9 @@ using namespace std;
 
 //this file is where all of our code for the functions goes. It is used to 
 //write out all the code that belongs in each function, so they can operate properly.
-//This function contains both functions for the stack and queue classes. They are separated.
-//Stack functions are listed first.
+//this file has functions for our table ADT including load, insert, display, remove, retrieve, and more. 
+//The functions are designed to be plug and play with our client program, so they can be used easily without 
+//knowing how each one works. 
 
 //constructor
 table::table(int size)
