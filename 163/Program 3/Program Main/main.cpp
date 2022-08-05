@@ -59,7 +59,8 @@ int main()
                     char type[SIZE];
                     char description[SIZE];
                     cout << "Enter the name of the collectable: "; 
-                    cin.get(name, SIZE, '\n'); cin.ignore(SIZE, '\n');
+                    cin.get(name, SIZE, '\n'); 
+                    cin.ignore(SIZE, '\n');
 
                     key_value = new char[strlen(name) + 1];
                     strcpy(key_value, name);
@@ -67,20 +68,24 @@ int main()
                     strcpy(to_add.name, name);
 
                     cout << "Enter the type of the collectable: ";
-                    cin.get(type, SIZE, '\n'); cin.ignore(SIZE, '\n');
+                    cin.get(type, SIZE, '\n'); 
+                    cin.ignore(SIZE, '\n');
                     to_add.type = new char[strlen(type) + 1];
                     strcpy(to_add.type, type);
 
                     cout << "Enter the year the collectable was created: ";
-                    cin >> to_add.year; cin.ignore(100, '\n');
+                    cin >> to_add.year; 
+                    cin.ignore(100, '\n');
                     
                     cout << "Enter the description of the collectable: ";
-                    cin.get(description, SIZE, '\n'); cin.ignore(SIZE, '\n');
+                    cin.get(description, SIZE, '\n'); 
+                    cin.ignore(SIZE, '\n');
                     to_add.description = new char[strlen(description) + 1];
                     strcpy(to_add.description, description);
 
                     cout << "Enter the worth of the collectable: ";
-                    cin >> to_add.worth; cin.ignore(100, '\n');
+                    cin >> to_add.worth; 
+                    cin.ignore(100, '\n');
                     
                     if(to_add.name && to_add.type && to_add.description)
                         table.add_collectable(key_value, to_add);
@@ -99,7 +104,8 @@ int main()
                     char name[SIZE];
                     
                     cout << "Enter the name of the collectable to find: ";
-                    cin.get(name, SIZE, '\n'); cin.ignore(SIZE, '\n');
+                    cin.get(name, SIZE, '\n'); 
+                    cin.ignore(SIZE, '\n');
                     name_to_find = new char[strlen(name) + 1];
                     strcpy(name_to_find, name);
                     cout << endl;
@@ -116,7 +122,8 @@ int main()
                     char name[SIZE]; 
                     
                     cout << "Enter the name of the collectable to remove: ";
-                    cin.get(name, SIZE, '\n'); cin.ignore(SIZE, '\n');
+                    cin.get(name, SIZE, '\n'); 
+                    cin.ignore(SIZE, '\n');
                     name_to_find = new char[strlen(name) + 1];
                     strcpy(name_to_find, name);
                     cout << endl;
@@ -133,7 +140,8 @@ int main()
                     char type[SIZE]; 
                     
                     cout << "Enter the type of the collectable to find: ";
-                    cin.get(type, SIZE, '\n'); cin.ignore(SIZE, '\n');
+                    cin.get(type, SIZE, '\n'); 
+                    cin.ignore(SIZE, '\n');
                     type_to_find = new char[strlen(type) + 1];
                     strcpy(type_to_find, type);
                     cout << endl;
@@ -150,7 +158,8 @@ int main()
                     char name[SIZE];
 
                     cout << "Enter the name of the collectable to retrieve: ";
-                    cin.get(name, SIZE, '\n'); cin.ignore(SIZE, '\n');
+                    cin.get(name, SIZE, '\n'); 
+                    cin.ignore(SIZE, '\n');
                     name_to_find = new char[strlen(name) + 1];
                     strcpy(name_to_find, name);
                     
