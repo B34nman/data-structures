@@ -2,9 +2,15 @@
 using namespace std;
 
 
+//TODO: Add binary search tree in header file and implement it in
+//TODO: the constructor, insert, retrieve, remove, display of type. 
+
+
+
 //constructor
 BST::BST()
 {
+    // ! remember to add binary search tree stuff here
     root = NULL;
 }
 
@@ -132,3 +138,59 @@ int BST::display_sorted(node * root)
     }
 }
 
+// displays the information for a match by collectible name
+// takes in the name of the collectible to display
+int BST::display_matched(char * name_to_find) const
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    
+    return display_matched(root, name_to_find);
+}
+int BST::display_matched(node * root, char * name_to_find) const
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    
+    if (strcmp(root->entry.name, name_to_find) == 0)
+    {
+        cout << "Name of collectible: " << root->entry.name << endl;
+        cout << "Type of collectible: " << root->entry.type << endl;
+        cout << "Year of creation: " << root->entry.year << endl;
+        cout << "Description: " << root->entry.description << endl;
+        cout << "Worth: " << root->entry.worth << endl;
+        return 1;
+    }
+    
+    return display_matched(root->left, name_to_find) + display_matched(root->right, name_to_find);
+}
+
+// retrieve (not display) all information for a match by type
+// takes in name of collectible and struct to pass info to
+// retrieve all collectables with a certain name and insert them into an array
+int BST::retrieve_by_name(char * name_to_find, collectable * array)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    
+    return retrieve_by_name(root, name_to_find, array);
+}
+int BST::retrieve_by_name(node * root, char * name_to_find, collectable * array)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+
+    //! ADD CODE HERE FOR TRAVERSE THE TREE AND RETRIEVE THE DATA
+
+
+
+    return retrieve_by_name(root->left, name_to_find, array) + retrieve_by_name(root->right, name_to_find, array);
+}
