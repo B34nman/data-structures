@@ -37,8 +37,6 @@ int BST::load(char * filename)
     int worth;
     int numLines = 0;
     
-    cout << "Loading data from file. \n";
-    
     infile.get(name, 100, '|'); infile.ignore(100, '|'); 
     
     //load data separated by "|" from the file and add it to the hash table
