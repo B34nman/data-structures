@@ -72,8 +72,9 @@ class BST
         int insert(char * key_value, const collectable & to_add, node * & root);
         int display_sorted(node * root);
         int display_matched(node * root, char * name_to_find) const;
-        int retrieve_by_name(node * root, char * name_to_find, collectable * array);
-        int remove_collectable(node * & root, char * name_to_find);
+        //takes in i argument for where we are in the array
+        int retrieve_by_name(node * root, char * name_to_find, collectable * array, int i);
+        int remove_collectable(node * root, char * name_to_find);
         int display_of_type(node * root, char * type_to_find);
 
         node * root; //root of the tree

@@ -3,14 +3,13 @@ using namespace std;
 
 
 //TODO: Add binary search tree in header file and implement it in
-//TODO: the constructor, insert, retrieve, remove, display of type. 
+//TODO: insert function
 
 
 
 //constructor
 BST::BST()
 {
-    // ! remember to add binary search tree stuff here
     root = NULL;
 }
 
@@ -18,7 +17,36 @@ BST::BST()
 BST::~BST()
 {
     //delete all nodes in the tree
-    
+    /* 
+    node * temp = new node;
+    node * hold = new node;
+    temp = root;
+    hold = root;
+    while(temp)
+    {
+        temp = temp->left;
+        delete root->entry.name;
+        delete root->entry.type;
+        delete root->entry.description;
+        delete root;
+        root = temp;        
+    }
+    temp = hold;
+    root = hold;
+    while (temp)
+    {
+        temp = temp->right;
+        delete root->entry.name;
+        delete root->entry.type;
+        delete root->entry.description;
+        delete root;
+        root = temp;
+    }    
+    delete temp;
+    delete hold;
+    temp = NULL;
+    hold = NULL;
+    */
 }
 
 int BST::load(char * filename)
@@ -88,22 +116,54 @@ int BST::insert(char * key_value, const collectable & to_add)
     if (root == NULL)
     {
         node * newNode = new node;
-        newNode->entry = to_add;
+        newNode->entry.name = new char[strlen(to_add.name) + 1];
+        strcpy(newNode->entry.name, to_add.name);
+        newNode->entry.type = new char[strlen(to_add.type) + 1];
+        strcpy(newNode->entry.type, to_add.type);
+        newNode->entry.description = new char[strlen(to_add.description) + 1];
+        strcpy(newNode->entry.description, to_add.description);
+        newNode->entry.worth = to_add.worth;
+        newNode->entry.year = to_add.year;
         newNode->left = NULL;
         newNode->right = NULL;
         root = newNode;
         return 1;
     }
-    else
-    {
-        //otherwise, we call the recursive function to add the node to the tree
-        return insert(key_value, to_add);
-    }
+    // otherwise, we call the recursive function to add the node to the tree
+    return insert(key_value, to_add, root);
 }
 int BST::insert(char * key_value, const collectable & to_add, node * & root)
 {
-
-}
+    //if the root is null, then we create a new node and set the root to it
+    if (root == NULL)
+    {
+        node * newNode = new node;
+        newNode->entry.name = new char[strlen(to_add.name) + 1];
+        strcpy(newNode->entry.name, to_add.name);
+        newNode->entry.type = new char[strlen(to_add.type) + 1];
+        strcpy(newNode->entry.type, to_add.type);
+        newNode->entry.description = new char[strlen(to_add.description) + 1];
+        strcpy(newNode->entry.description, to_add.description);
+        newNode->entry.worth = to_add.worth;
+        newNode->entry.year = to_add.year;
+        newNode->left = NULL;
+        newNode->right = NULL;
+        root = newNode;
+        return 1;
+    }
+    else if (strcmp(key_value, root->entry.name) < 0)
+    {
+        //if the key is less than the root, we call the function again
+        //with the root's left child
+        return insert(key_value, to_add, root->left);
+    }
+    else
+    {
+        //else, the data is >= so we call the right side  of the tree
+        return insert(key_value, to_add, root->right);
+    }
+    
+} 
 
 //displays all data in sorted order by name
 //takes in no arguments, because it is displaying all data in the table
@@ -115,7 +175,7 @@ int BST::display_sorted()
     }
     else
     {
-        display_sorted(root);
+        return display_sorted(root);
     }
 }
 int BST::display_sorted(node * root)
@@ -134,6 +194,7 @@ int BST::display_sorted(node * root)
         cout << "Worth: " << root->entry.worth << endl; 
         display_sorted(root->right);
     }
+    return 1;
 }
 
 // displays the information for a match by collectible name
@@ -176,19 +237,80 @@ int BST::retrieve_by_name(char * name_to_find, collectable * array)
     {
         return 0;
     }
-    
-    return retrieve_by_name(root, name_to_find, array);
+    int i = 0; 
+    return retrieve_by_name(root, name_to_find, array, i);
 }
-int BST::retrieve_by_name(node * root, char * name_to_find, collectable * array)
+int BST::retrieve_by_name(node * root, char * name_to_find, collectable * array, int i)
 {
     if (root == NULL)
     {
         return 0;
     }
 
-    //! ADD CODE HERE FOR TRAVERSE THE TREE AND RETRIEVE THE DATA
+    if (strcmp(root->entry.name, name_to_find) == 0)
+    {
+        //array[0] = root->entry;
+        array[i].name = new char[strlen(root->entry.name) + 1];
+        array[i].type = new char[strlen(root->entry.type) + 1];
+        array[i].description = new char[strlen(root->entry.description) + 1];
+        strcpy(array[i].name, root->entry.name);
+        strcpy(array[i].type, root->entry.type);
+        strcpy(array[i].description, root->entry.description);
+        array[i].year = root->entry.year;
+        array[i].worth = root->entry.worth;
+        ++i; 
+    }
 
+    return retrieve_by_name(root->left, name_to_find, array, i) + retrieve_by_name(root->right, name_to_find, array, i);
+}
 
+int BST::remove_collectable(char * name_to_remove)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    return remove_collectable(root, name_to_remove);
+}
+int BST::remove_collectable(node * root, char * name_to_remove)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    if (strcmp(root->entry.name, name_to_remove) == 0)
+    {
+        delete[] root->entry.name;
+        delete[] root->entry.type;
+        delete[] root->entry.description;
+        delete root;
+        root = NULL;
+        return 1;
+    }
+    return remove_collectable(root->left, name_to_remove) + remove_collectable(root->right, name_to_remove);
+}
 
-    return retrieve_by_name(root->left, name_to_find, array) + retrieve_by_name(root->right, name_to_find, array);
+int BST::display_of_type(char * type_to_find)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    return display_of_type(root, type_to_find);
+}
+int BST::display_of_type(node * root, char * type_to_find)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    if (strcmp(root->entry.type, type_to_find) == 0)
+    {
+        cout << "Name of collectible: " << root->entry.name << endl;
+        cout << "Type of collectible: " << root->entry.type << endl;
+        cout << "Year of creation: " << root->entry.year << endl;
+        cout << "Description: " << root->entry.description << endl;
+        cout << "Worth: " << root->entry.worth << endl;
+    }
+    return display_of_type(root->left, type_to_find) + display_of_type(root->right, type_to_find);
 }
