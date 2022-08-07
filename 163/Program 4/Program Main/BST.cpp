@@ -2,9 +2,7 @@
 using namespace std;
 
 
-//TODO: Add binary search tree in header file and implement it in
-//TODO: insert function
-
+//TODO: fix remove function
 
 
 //constructor
@@ -222,10 +220,9 @@ int BST::display_matched(node * root, char * name_to_find) const
         cout << "Year of creation: " << root->entry.year << endl;
         cout << "Description: " << root->entry.description << endl;
         cout << "Worth: " << root->entry.worth << endl;
-        return 1;
     }
     
-    return display_matched(root->left, name_to_find) + display_matched(root->right, name_to_find);
+    return 1 + display_matched(root->left, name_to_find) + display_matched(root->right, name_to_find);
 }
 
 // retrieve (not display) all information for a match by type
