@@ -2,7 +2,7 @@
 using namespace std;
 
 
-//TODO: fix remove function
+//TODO: fix remove function and destructor
 
 
 //constructor
@@ -15,37 +15,27 @@ BST::BST()
 BST::~BST()
 {
     //delete all nodes in the tree
-    /* 
-    node * temp = new node;
-    node * hold = new node;
-    temp = root;
-    hold = root;
-    while(temp)
-    {
-        temp = temp->left;
-        delete root->entry.name;
-        delete root->entry.type;
-        delete root->entry.description;
-        delete root;
-        root = temp;        
-    }
-    temp = hold;
-    root = hold;
-    while (temp)
-    {
-        temp = temp->right;
-        delete root->entry.name;
-        delete root->entry.type;
-        delete root->entry.description;
-        delete root;
-        root = temp;
-    }    
-    delete temp;
-    delete hold;
-    temp = NULL;
-    hold = NULL;
-    */
+    remove_all(root);
 }
+
+int BST::remove_all(node * & root)
+{
+    if(root == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        remove_all(root->left);
+        remove_all(root->right);
+        delete [] root->entry.name;
+        delete [] root->entry.type;
+        delete [] root->entry.description;
+        delete root;
+        root = NULL;
+    }
+}
+
 
 int BST::load(char * filename)
 {
@@ -271,21 +261,78 @@ int BST::remove_collectable(char * name_to_remove)
 }
 int BST::remove_collectable(node * root, char * name_to_remove)
 {
-    if (root == NULL)
+    //means we have not found the item and we are at the end of the list 
+    if(root == NULL)
     {
         return 0;
     }
-    if (strcmp(root->entry.name, name_to_remove) == 0)
+    //if the name is less than the root, we go to the left 
+    if(strcmp(name_to_remove, root->entry.name) < 0)
     {
-        delete[] root->entry.name;
-        delete[] root->entry.type;
-        delete[] root->entry.description;
-        delete root;
-        root = NULL;
-        return 1;
+        return remove_collectable(root->left, name_to_remove);
     }
-    return remove_collectable(root->left, name_to_remove) + remove_collectable(root->right, name_to_remove);
+    //if the name is greater than the root, we go to the right
+    else if(strcmp(name_to_remove, root->entry.name) > 0)
+    {
+        return remove_collectable(root->right, name_to_remove);
+    }
+    //if the name equals the root, we have arrived!
+    else
+    {
+        if(root->left == NULL && root->right == NULL)
+        {
+            //remove the leaf node
+            delete [] root->entry.name;
+            delete [] root->entry.type;
+            delete [] root->entry.description;
+            delete root;
+            root = NULL;
+            return 1;
+        }
+        else if(root->left == NULL)
+        {
+            //remove the node with one right child
+            node * temp = root;
+            root = root->right;
+            delete [] temp->entry.name;
+            delete [] temp->entry.type;
+            delete [] temp->entry.description;
+            delete temp;
+            return 1;        
+        }
+        else if(root->right == NULL)
+        {
+            //remove the node with one left child
+            node * temp = root;
+            root = root->left;
+            delete [] temp->entry.name;
+            delete [] temp->entry.type;
+            delete [] temp->entry.description;
+            delete temp;
+            return 1;        
+        
+        }
+        else
+        {
+            //remove the node with two children
+            node * temp = root->right;
+            while(temp->left != NULL)
+            {
+                temp = temp->left;
+            }
+            root->entry.name = temp->entry.name;
+            root->entry.type = temp->entry.type;
+            root->entry.description = temp->entry.description;
+            root->entry.year = temp->entry.year;
+            root->entry.worth = temp->entry.worth;
+            remove_collectable(root->right, temp->entry.name);
+            return 1; 
+        }
+    }
+    return 0;
+
 }
+
 
 int BST::display_of_type(char * type_to_find)
 {

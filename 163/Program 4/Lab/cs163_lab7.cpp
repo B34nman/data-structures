@@ -8,10 +8,14 @@ int main()
     BST.display();
 
     /*  PLACE YOUR FUNCTION CALL HERE */
+    BST.count();
+    BST.sum();
+    BST.height();
+    BST.remove_all();
+    BST.display();
 
 
-
-
+    BST.copy(BST);
     BST.display();
 
     return 0;

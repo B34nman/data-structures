@@ -76,6 +76,7 @@ class BST
         int retrieve_by_name(node * root, char * name_to_find, collectable * array, int i);
         int remove_collectable(node * root, char * name_to_find);
         int display_of_type(node * root, char * type_to_find);
+        int remove_all(node * & root); //remove all function for the destructor
 
         node * root; //root of the tree
         int num_items; //number of items in the tree
