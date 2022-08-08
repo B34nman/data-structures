@@ -292,41 +292,68 @@ int BST::remove_collectable(node * root, char * name_to_remove)
         else if(root->left == NULL)
         {
             //remove the node with one right child
-            node * temp = root;
-            root = root->right;
-            delete [] temp->entry.name;
-            delete [] temp->entry.type;
-            delete [] temp->entry.description;
-            delete temp;
+            node * temp = root->right;
+            delete [] root->entry.name;
+            delete [] root->entry.type;
+            delete [] root->entry.description;
+            delete root;
+            root = temp;
             return 1;        
         }
         else if(root->right == NULL)
         {
             //remove the node with one left child
             node * temp = root;
-            root = root->left;
-            delete [] temp->entry.name;
-            delete [] temp->entry.type;
-            delete [] temp->entry.description;
-            delete temp;
+            node * temp = root->left;
+            delete [] root->entry.name;
+            delete [] root->entry.type;
+            delete [] root->entry.description;
+            delete root;
+            root = temp;
             return 1;        
-        
         }
         else
         {
             //remove the node with two children
             node * temp = root->right;
+            if(temp->left == NULL)
+            {
+                //replace the root with the right child
+                strcpy(root->entry.name, temp->entry.name);
+                strcpy(root->entry.type, temp->entry.type);
+                strcpy(root->entry.description, temp->entry.description);
+                root->entry.year = temp->entry.year;
+                root->entry.worth = temp->entry.worth;
+
+                delete [] temp->entry.name;
+                delete [] temp->entry.type;
+                delete [] temp->entry.description;
+                delete temp;
+                temp = NULL;
+                return 1;
+            }
+
+            node * previous = root;
             while(temp->left != NULL)
             {
+                previous = temp; 
                 temp = temp->left;
             }
-            root->entry.name = temp->entry.name;
-            root->entry.type = temp->entry.type;
-            root->entry.description = temp->entry.description;
+            strcpy(root->entry.name, temp->entry.name);
+            strcpy(root->entry.type, temp->entry.type);
+            strcpy(root->entry.description, temp->entry.description);
             root->entry.year = temp->entry.year;
             root->entry.worth = temp->entry.worth;
-            remove_collectable(root->right, temp->entry.name);
-            return 1; 
+
+            node * hold = temp->right;
+            delete [] temp->entry.name;
+            delete [] temp->entry.type;
+            delete [] temp->entry.description;
+            delete temp;
+            
+            previous->left = hold;
+
+            return 1;
         }
     }
     return 0;
