@@ -2,7 +2,7 @@
 using namespace std;
 
 
-//TODO: fix remove function and destructor
+//TODO: fix remove function
 
 
 //constructor
@@ -259,6 +259,7 @@ int BST::remove_collectable(char * name_to_remove)
     }
     return remove_collectable(root, name_to_remove);
 }
+
 int BST::remove_collectable(node * root, char * name_to_remove)
 {
     //means we have not found the item and we are at the end of the list 
@@ -272,89 +273,74 @@ int BST::remove_collectable(node * root, char * name_to_remove)
         return remove_collectable(root->left, name_to_remove);
     }
     //if the name is greater than the root, we go to the right
-    else if(strcmp(name_to_remove, root->entry.name) > 0)
+    if(strcmp(name_to_remove, root->entry.name) > 0)
     {
         return remove_collectable(root->right, name_to_remove);
     }
-    //if the name equals the root, we have arrived!
+    // if the name equals the root, we have arrived!
+
+    //case with no children, so just delete leaf
+    if (root->left == NULL && root->right == NULL)
+    {
+        // remove the leaf node
+        delete[] root->entry.name;
+        delete[] root->entry.type;
+        delete[] root->entry.description;
+        delete root;
+        root = NULL;
+        return 1;
+    }
+    //case with one child so just delete node and replace with child 
+    else if (root->left == NULL)
+    {
+        // remove the node with one right child
+        node *temp = root;
+        root = root->right;
+        delete[] temp->entry.name;
+        delete[] temp->entry.type;
+        delete[] temp->entry.description;
+        delete temp;
+        return 1;
+    }
+    else if (root->right == NULL)
+    {
+        // remove the node with one left child
+        node *temp = root;
+        root = root->left;
+        delete[] temp->entry.name;
+        delete[] temp->entry.type;
+        delete[] temp->entry.description;
+        delete temp;
+        return 1;
+    }
+    //case with two children, oh no...
     else
     {
-        if(root->left == NULL && root->right == NULL)
+        // remove the node with two children
+        //find in order successor 
+        node *temp = root->right;
+        node *previous = root; 
+        while (temp->left != NULL)
         {
-            //remove the leaf node
-            delete [] root->entry.name;
-            delete [] root->entry.type;
-            delete [] root->entry.description;
-            delete root;
-            root = NULL;
-            return 1;
+            previous = temp;
+            temp = temp->left;
         }
-        else if(root->left == NULL)
-        {
-            //remove the node with one right child
-            node * temp = root->right;
-            delete [] root->entry.name;
-            delete [] root->entry.type;
-            delete [] root->entry.description;
-            delete root;
-            root = temp;
-            return 1;        
-        }
-        else if(root->right == NULL)
-        {
-            //remove the node with one left child
-            node * temp = root;
-            node * temp = root->left;
-            delete [] root->entry.name;
-            delete [] root->entry.type;
-            delete [] root->entry.description;
-            delete root;
-            root = temp;
-            return 1;        
-        }
-        else
-        {
-            //remove the node with two children
-            node * temp = root->right;
-            if(temp->left == NULL)
-            {
-                //replace the root with the right child
-                strcpy(root->entry.name, temp->entry.name);
-                strcpy(root->entry.type, temp->entry.type);
-                strcpy(root->entry.description, temp->entry.description);
-                root->entry.year = temp->entry.year;
-                root->entry.worth = temp->entry.worth;
+        //copy data from in order successor
+        strcpy(root->entry.name, temp->entry.name);
+        strcpy(root->entry.type, temp->entry.type);
+        strcpy(root->entry.description, temp->entry.description);
+        root->entry.year = temp->entry.year;
+        root->entry.worth = temp->entry.worth;
 
-                delete [] temp->entry.name;
-                delete [] temp->entry.type;
-                delete [] temp->entry.description;
-                delete temp;
-                temp = NULL;
-                return 1;
-            }
+        node *hold = temp->right;
+        delete[] temp->entry.name;
+        delete[] temp->entry.type;
+        delete[] temp->entry.description;
+        delete temp;
 
-            node * previous = root;
-            while(temp->left != NULL)
-            {
-                previous = temp; 
-                temp = temp->left;
-            }
-            strcpy(root->entry.name, temp->entry.name);
-            strcpy(root->entry.type, temp->entry.type);
-            strcpy(root->entry.description, temp->entry.description);
-            root->entry.year = temp->entry.year;
-            root->entry.worth = temp->entry.worth;
+        previous->left = hold;
 
-            node * hold = temp->right;
-            delete [] temp->entry.name;
-            delete [] temp->entry.type;
-            delete [] temp->entry.description;
-            delete temp;
-            
-            previous->left = hold;
-
-            return 1;
-        }
+        return 1;
     }
     return 0;
 

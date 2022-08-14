@@ -1,0 +1,8 @@
+7|sneakers|1971|mint condition|100\n
+4|trainers|1972|good condition|200\n
+6|runners|1973|decent condition|300\n
+3|walkers|1974|poor condition|400\n
+8|walkers|1974|poor condition|400\n
+9|walkers|1974|poor condition|400\n
+
+
