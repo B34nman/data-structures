@@ -300,7 +300,7 @@ int BST::remove_collectable(node * root, char * name_to_remove)
         delete[] temp->entry.type;
         delete[] temp->entry.description;
         delete temp;
-        return 1;
+        return remove_collectable(root->right, name_to_remove);
     }
     else if (root->right == NULL)
     {
@@ -311,7 +311,7 @@ int BST::remove_collectable(node * root, char * name_to_remove)
         delete[] temp->entry.type;
         delete[] temp->entry.description;
         delete temp;
-        return 1;
+        return remove_collectable(root->left, name_to_remove);
     }
     //case with two children, oh no...
     else
@@ -340,7 +340,7 @@ int BST::remove_collectable(node * root, char * name_to_remove)
 
         previous->left = hold;
 
-        return 1;
+        return remove_collectable(root, name_to_remove);
     }
     return 0;
 

@@ -33,7 +33,9 @@ int main()
     } while (again());
    
     //Display direct connections (call your function)
-        
+    my_journal.display_adjacent(title);
+
+
     //Let's display what we have  (this function was provided for you)
     cout <<"\n\nThis is the contents of the table:\n";
     my_journal.display_all();
