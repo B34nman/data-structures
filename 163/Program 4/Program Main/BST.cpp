@@ -1,9 +1,12 @@
 #include "BST.h"
 using namespace std;
 
-
-//TODO: fix remove function
-
+// Andy Franck, CS 163, 8/18/22
+//this file is where all of our code for the functions goes. It is used to 
+//write out all the code that belongs in each function, so they can operate properly.
+//this file has functions for our BST including load, insert, display, remove, retrieve, and more. 
+//The functions are designed to be plug and play with our client program, so they can be used easily without 
+//knowing how each one works. 
 
 //constructor
 BST::BST()
@@ -17,7 +20,8 @@ BST::~BST()
     //delete all nodes in the tree
     remove_all(root);
 }
-
+//removes all nodes in the tree
+//takes in the root node
 int BST::remove_all(node * & root)
 {
     if(root == NULL)
@@ -26,6 +30,8 @@ int BST::remove_all(node * & root)
     }
     else
     {
+        //delete after the recursive call,
+        //so we get to the end and then delete going backwards
         remove_all(root->left);
         remove_all(root->right);
         delete [] root->entry.name;
@@ -36,7 +42,7 @@ int BST::remove_all(node * & root)
     }
 }
 
-
+//loads data into the table from a file. takes in the name of the file.
 int BST::load(char * filename)
 {
     ifstream infile;
@@ -120,6 +126,7 @@ int BST::insert(char * key_value, const collectable & to_add)
     // otherwise, we call the recursive function to add the node to the tree
     return insert(key_value, to_add, root);
 }
+//recursive function to add a node to the tree
 int BST::insert(char * key_value, const collectable & to_add, node * & root)
 {
     //if the root is null, then we create a new node and set the root to it
@@ -166,6 +173,7 @@ int BST::display_sorted()
         return display_sorted(root);
     }
 }
+//recursive function to display all data in the tree
 int BST::display_sorted(node * root)
 {
     if (root == NULL)
@@ -174,6 +182,7 @@ int BST::display_sorted(node * root)
     }
     else
     {
+        //recursively call functions and display between so it displays in sorted order
         display_sorted(root->left);
         cout << "Name of collectible: " << root->entry.name << endl;
         cout << "Type of collectible: " << root->entry.type << endl;
@@ -195,13 +204,14 @@ int BST::display_matched(char * name_to_find) const
     
     return display_matched(root, name_to_find);
 }
+//recursive function to display the data for a match
 int BST::display_matched(node * root, char * name_to_find) const
 {
     if (root == NULL)
     {
         return 0;
     }
-    
+    //checks each node and if the name matches, displays it 
     if (strcmp(root->entry.name, name_to_find) == 0)
     {
         cout << "Name of collectible: " << root->entry.name << endl;
@@ -222,6 +232,7 @@ int BST::retrieve_by_name(char * name_to_find, collectable * array)
     int i = 0; 
     return retrieve_by_name(root, name_to_find, array, i);
 }
+//recursive function to retrieve all data for a match
 int BST::retrieve_by_name(node * root, char * name_to_find, collectable * array, int i)
 {
     if (root == NULL)
@@ -236,9 +247,9 @@ int BST::retrieve_by_name(node * root, char * name_to_find, collectable * array,
         } 
     }
 
+    //searches thru each node, if it finds a match, adds it to the array
     if (strcmp(root->entry.name, name_to_find) == 0)
     {
-        //array[0] = root->entry;
         array[i].name = new char[strlen(root->entry.name) + 1];
         array[i].type = new char[strlen(root->entry.type) + 1];
         array[i].description = new char[strlen(root->entry.description) + 1];
@@ -250,9 +261,13 @@ int BST::retrieve_by_name(node * root, char * name_to_find, collectable * array,
         ++i; 
     }
 
+    //return i, because that is where we are in the array so we can add to empty spot
     return retrieve_by_name(root->left, name_to_find, array, i) + retrieve_by_name(root->right, name_to_find, array, i);
 }
 
+// retrieve (not display) all information for a match by type
+// takes in type of collectible and struct to pass info to
+// retrieve all collectables with a certain type and insert them into an array
 int BST::remove_collectable(char * name_to_remove)
 {
     if (root == NULL)
@@ -261,7 +276,7 @@ int BST::remove_collectable(char * name_to_remove)
     }
     return remove_collectable(root, name_to_remove);
 }
-
+//recursive function to remove a collectable
 int BST::remove_collectable(node * & root, char * name_to_remove)
 {
     //means we have not found the item and we are at the end of the list 
@@ -350,7 +365,8 @@ int BST::remove_collectable(node * & root, char * name_to_remove)
 
 }
 
-
+// display all information for a match by type.
+// takes in type of collectible to find
 int BST::display_of_type(char * type_to_find)
 {
     if (root == NULL)
@@ -359,6 +375,7 @@ int BST::display_of_type(char * type_to_find)
     }
     return display_of_type(root, type_to_find);
 }
+//recursive function to display all data for a match
 int BST::display_of_type(node * root, char * type_to_find)
 {
     if (root == NULL)

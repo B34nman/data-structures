@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-//Andy Franck, CS 163
+// Andy Franck, CS 163, 8/18/22
 //this file is the header for our ADT. It is made to declare all functions, structs,
 //classes, etc. The content of the functions will go inside the .cpp file, but this
 //header allows us to condense all our declarations down.
@@ -70,11 +70,19 @@ class BST
         //private functions that are used by the public functions above 
         //all take in the root node
         int insert(char * key_value, const collectable & to_add, node * & root);
+        //displays all data in sorted order by name.
+        //takes in the root
         int display_sorted(node * root);
+        //displays the information for a match by collectible name
+        //takes in the name of the collectible to display and the root
         int display_matched(node * root, char * name_to_find) const;
         //takes in i argument for where we are in the array
         int retrieve_by_name(node * root, char * name_to_find, collectable * array, int i);
+        //removes given collectible from the table.
+        //takes in the name of the collectible to remove and the root
         int remove_collectable(node * & root, char * name_to_find);
+        //display all information for a match by type.
+        //Takes in the type of collectible to search for and the root
         int display_of_type(node * root, char * type_to_find);
         int remove_all(node * & root); //remove all function for the destructor
 
