@@ -159,6 +159,7 @@ int main()
                     //is there any way other than this??? 
                     collectable array[numLines];
 
+
                     cout << endl;
                     int numItem = bst.retrieve_by_name(name_to_find, array);
                     if (numItem == 0)
@@ -167,6 +168,8 @@ int main()
                     }
                     else
                     {
+                        cout << "Collectable(s) added to array.\n";
+
                         for(int i = 0; i < numItem; i++) 
                         {
                             if (array[i].name)

@@ -179,7 +179,6 @@ int BST::display_sorted(node * root)
         cout << "Type of collectible: " << root->entry.type << endl;
         cout << "Year of creation: " << root->entry.year << endl;  
         cout << "Description: " << root->entry.description << endl;
-        cout << "Worth: " << root->entry.worth << endl; 
         display_sorted(root->right);
     }
     return 1;
@@ -220,10 +219,6 @@ int BST::display_matched(node * root, char * name_to_find) const
 // retrieve all collectables with a certain name and insert them into an array
 int BST::retrieve_by_name(char * name_to_find, collectable * array)
 {
-    if (root == NULL)
-    {
-        return 0;
-    }
     int i = 0; 
     return retrieve_by_name(root, name_to_find, array, i);
 }
@@ -231,7 +226,14 @@ int BST::retrieve_by_name(node * root, char * name_to_find, collectable * array,
 {
     if (root == NULL)
     {
-        return 0;
+        if (i == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return i;
+        } 
     }
 
     if (strcmp(root->entry.name, name_to_find) == 0)
@@ -260,7 +262,7 @@ int BST::remove_collectable(char * name_to_remove)
     return remove_collectable(root, name_to_remove);
 }
 
-int BST::remove_collectable(node * root, char * name_to_remove)
+int BST::remove_collectable(node * & root, char * name_to_remove)
 {
     //means we have not found the item and we are at the end of the list 
     if(root == NULL)
@@ -294,51 +296,53 @@ int BST::remove_collectable(node * root, char * name_to_remove)
     else if (root->left == NULL)
     {
         // remove the node with one right child
-        node *temp = root;
-        root = root->right;
-        delete[] temp->entry.name;
-        delete[] temp->entry.type;
-        delete[] temp->entry.description;
-        delete temp;
-        return remove_collectable(root->right, name_to_remove);
+        node *temp = root->right;
+        delete[] root->entry.name;
+        delete[] root->entry.type;
+        delete[] root->entry.description;
+        delete root;
+        root = temp; 
+        return remove_collectable(root, name_to_remove);
     }
     else if (root->right == NULL)
     {
         // remove the node with one left child
-        node *temp = root;
-        root = root->left;
-        delete[] temp->entry.name;
-        delete[] temp->entry.type;
-        delete[] temp->entry.description;
-        delete temp;
-        return remove_collectable(root->left, name_to_remove);
+        node *temp = root->left;
+        delete[] root->entry.name;
+        delete[] root->entry.type;
+        delete[] root->entry.description;
+        delete root;
+        root = temp;
+        return remove_collectable(root, name_to_remove);
     }
     //case with two children, oh no...
     else
     {
         // remove the node with two children
         //find in order successor 
-        node *temp = root->right;
-        node *previous = root; 
-        while (temp->left != NULL)
+        
+        node * current = root->right;
+        node * parent = root;
+        while(current->left != NULL)
         {
-            previous = temp;
-            temp = temp->left;
+            parent = current;
+            current = current->left;
         }
-        //copy data from in order successor
-        strcpy(root->entry.name, temp->entry.name);
-        strcpy(root->entry.type, temp->entry.type);
-        strcpy(root->entry.description, temp->entry.description);
-        root->entry.year = temp->entry.year;
-        root->entry.worth = temp->entry.worth;
+        node * temp = current->right;
+        
+        strcpy(root->entry.name, current->entry.name);
+        strcpy(root->entry.type, current->entry.type);
+        strcpy(root->entry.description, current->entry.description);
+        root->entry.year = current->entry.year;
+        root->entry.worth = current->entry.worth;
 
-        node *hold = temp->right;
-        delete[] temp->entry.name;
-        delete[] temp->entry.type;
-        delete[] temp->entry.description;
-        delete temp;
-
-        previous->left = hold;
+        
+        delete[] current->entry.name;
+        delete[] current->entry.type;
+        delete[] current->entry.description;
+        delete current;
+        
+        parent->right = temp;
 
         return remove_collectable(root, name_to_remove);
     }
