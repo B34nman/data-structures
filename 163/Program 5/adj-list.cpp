@@ -1,6 +1,9 @@
 #include "adj-list.h"
 using namespace std;
 
+//TODO: breadth first traversal for the display all function
+
+
 //constructor that takes the size of the array to create
 //the size is how many vertices the graph can hold
 graph::graph(int size)
@@ -93,19 +96,26 @@ int graph::find_location(string key_value)
     return -1;
 }
 
-// displays the adjacency list, traversing through the edge list for each vertex.
+//displays the adjacency list, traversing through the edge list for each vertex.
 int graph::display_list()
 {
     //display the adjacency list
     for(int i = 0; i < list_size; ++i)
     {
-        cout << adjacency_list[i].placeName;
-        node * current = adjacency_list[i].head;
-        while(current && current->adjacent->placeName != "")
+        if(adjacency_list[i].placeName != "")
         {
-            cout << " --" << "streetname" << "-> " << current->adjacent->placeName;
-            current = current->next;
+            cout << adjacency_list[i].placeName << " is connected to: " << endl;
+            node * current = adjacency_list[i].head;
+            while(current)
+            {
+                if(current->adjacent->placeName != "")
+                {
+                    cout << current->adjacent->placeName << " via " << current->streetName << endl;
+                }
+                current = current->next;
+            }
+            cout << endl;
         }
-        cout << "|||" << endl;
     }
+    return 0;
 }
