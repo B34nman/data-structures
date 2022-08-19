@@ -107,6 +107,7 @@ int graph::find_location(string key_value)
 //displays the adjacency list, traversing through the edge list for each vertex.
 int graph::display_list()
 {
+    cout << endl;
     //display the adjacency list
     for(int i = 0; i < list_size; ++i)
     {

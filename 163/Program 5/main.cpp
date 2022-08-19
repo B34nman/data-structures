@@ -30,7 +30,7 @@ int main()
         cout << endl << endl;
         
         // create a graph object
-        cout << "What should the size of the graph be? e.g. how many places can you add?" << endl;
+        cout << "What should the size of the graph be? e.g. how many places/stops can you add?" << endl;
         cin >> size;
         cin.ignore(100, '\n');
     }
