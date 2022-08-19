@@ -1,6 +1,15 @@
 #include "adj-list.h"
 using namespace std;
 
+
+//Andy Franck, CS 163, 8/24/22
+//This program is the main/driver file. This file creates an adajency table object, and then calls
+//all of the functions when they are called. 
+//The client program allows the user to test every option themselves,
+//and easily manage all events and test all functions. 
+//in regards to it's purpose within the entire program, this file exists
+//to test the functions of the ADT. 
+
 int main()
 {
     
@@ -58,20 +67,20 @@ int main()
         cin.ignore(100, '\n');
         if(choice == 'a')
         {
-            cout << "What is the name of the place you would like to add?" << endl;
+            cout << "Name of the place to add: " << endl;
             string name;
             getline(cin, name);
             my_graph.insert_vertex(name);
         }
         else if(choice == 'b')
         {
-            cout << "What is the name of the place you are currently at?" << endl;
+            cout << "Name of current place:" << endl;
             string current;
             getline(cin, current);
-            cout << "What is the name of the place you would like to create a path to?" << endl;
+            cout << "Name of place to create a path to:" << endl;
             string to_add;
             getline(cin, to_add);
-            cout << "What is the name of the path you are adding?" << endl;
+            cout << "Name of path:" << endl;
             string street;
             getline(cin, street);
             my_graph.insert_edge(current, to_add, street);

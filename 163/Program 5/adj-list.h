@@ -5,6 +5,12 @@
 #include <string>
 using namespace std;
 
+// Andy Franck, CS 163, 8/18/22
+//this file is the header for our ADT. It is made to declare all functions, structs,
+//classes, etc. The content of the functions will go inside the .cpp file, but this
+//header allows us to condense all our declarations down.
+
+
 struct vertex
 {
     //struct not required, just a name

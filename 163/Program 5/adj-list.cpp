@@ -3,6 +3,13 @@ using namespace std;
 
 //TODO: breadth first traversal for the display all function
 
+//Andy Franck, CS 163, 8/24/22
+//this file is where all of our code for the functions goes. It is used to 
+//write out all the code that belongs in each function, so they can operate properly.
+//this file has functions for our adjacency list, which include insert_vertex, insert_edge,
+//and display_all 
+//The functions are designed to be plug and play with our client program, so they can be used easily without 
+//knowing how each one works. 
 
 //constructor that takes the size of the array to create
 //the size is how many vertices the graph can hold
@@ -12,7 +19,7 @@ graph::graph(int size)
     list_size = size;
 }
 
-//destructor deallocates all memory
+//destructor, deallocates all memory
 graph::~graph()
 {
     //deallocate all memory
@@ -83,6 +90,7 @@ int graph::insert_edge(string current_vertex, string to_attach, string name)
         return 0;
     }
 }
+// finds the value in the array that the key_value is located at
 int graph::find_location(string key_value)
 {
     //find the location of a vertex in the array
