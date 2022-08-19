@@ -75,6 +75,9 @@ int graph::insert_edge(string current_vertex, string to_attach, string name)
     }
     else
     {
+        //two way street, so we can go from one to the other and back.
+        //one of these could be removed if we wanted to make it a one way street
+
         node *new_node = new node;
         new_node->streetName = name;
         new_node->adjacent = &adjacency_list[connect_to];
