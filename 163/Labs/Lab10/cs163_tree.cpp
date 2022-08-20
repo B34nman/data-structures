@@ -39,7 +39,8 @@ int table::count_root(node * root, int match)
 void table::copy(table & source)
 {
       copy(root, source.root);
-}	//STEP 3
+      //remove root here
+}
 
 void table::copy(node * & destination, node * source)
 {
