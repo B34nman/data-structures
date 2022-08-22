@@ -18,7 +18,7 @@ int table::display_23(node23 * root)
     if(!root->child[0] && !root->child[1] && !root->child[2])
     {
         cout << root->data[0] << " ";
-        if(root->data[1])
+        if(root->data[1]) //! forgot this if statement
             cout << root->data[1] << " ";
     }
     display_23(root->child[0]);
@@ -59,6 +59,7 @@ bool table::find_largest()
 bool table::find_largest(node23 * root, int match)
 {
     if(!root) return false;
+    //! did all this, but it shortened it
     if(root->data[0] == match || root->data[1] == match)
         return true;
     return find_largest(root->child[0], match) || find_largest(root->child[1], match) || find_largest(root->child[2], match);
@@ -76,7 +77,7 @@ int table::copy(table & source)
 int table::copy(node23 * & dest_root, node23 * source_root)
 {
     if(!source_root) return 0;
-    dest_root = new node23;
+    dest_root = new node23; //! forgot this line
     dest_root->data[0] = source_root->data[0];
     dest_root->data[1] = source_root->data[1];
     copy(dest_root->child[0], source_root->child[0]);
