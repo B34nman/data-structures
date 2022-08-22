@@ -29,7 +29,7 @@ class table
     	int display_23();      //Display all nodes with no children in 2-3 tree
 
   	    bool find_largest();   //Return true if the root's largest value appears more than once
-        int copy(const table & source); //Copies the argument into the current ojbect
+        int copy(table & source); //Copies the argument into the current ojbect
 
 
 	    //  ***These functions have been written for you  already

@@ -7,7 +7,14 @@ int main()
     trees.build();
     trees.display();
 
+    table trees2;
+    trees2.build();  
+    
     /*  PLACE YOUR FUNCTION CALL HERE */
+    trees.display_23();
+    bool largest = trees.find_largest();
+    cout << "More than once? " << largest << endl;
+    trees.copy(trees2);
 
     return 0;
 }
