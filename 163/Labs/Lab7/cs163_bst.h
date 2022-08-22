@@ -24,8 +24,18 @@ class table
 	//  ***These functions are called "wrapper" functions and
     //  are provided as a sample on how to call your recursive functions
 	~table();
-	int count(); 	
 
+	// * practice functions for proficiency demo
+	int insert(int to_add);
+	int count();
+	int disp_sorted();
+	int count_pass(int passed_val);
+	int add_item(int to_add);
+	int count_no_children();
+	int average_all_data();
+	int count_greater_node();
+
+	
     //  ***Now it is your turn to write these in the .cpp file!
 	int sum();
  	int height();	//simply call the private version of the functions
@@ -40,8 +50,16 @@ class table
     private:
 
 	node * root;
+	int disp_sorted(node * root);
+	int count_pass(node * root, int passed_val);
+	int add_item(node * root, int to_add);
+	int count_no_children(node * root);
+	int average_all_data(node * root, int sum, int count);
+	int count_greater_node(node * root, int rootVal);
 
+	
 	//  ***These are the functions you will be writing recursively!
+	int insert(node * root, int to_add);
 	int count (node * root);	
 	int sum (node * root);		
 	int height (node * root);	

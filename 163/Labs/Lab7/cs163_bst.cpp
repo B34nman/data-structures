@@ -8,6 +8,27 @@ table::~table()
      remove_all(root); //call the recursive removal_all private function
 }
 
+
+int table::insert(int to_add)
+{
+    return insert(root, to_add); 
+}
+int table::insert(node * root, int to_add)
+{
+    if(!root)
+    {
+        root = new node();
+        root->data = to_add;
+        return 1; 
+    }
+    if(root->data > to_add)
+        insert(root->left, to_add);
+    else
+        insert(root->right, to_add);
+    
+    return 0; //we won't get here
+}
+
 // This is a wrapper function that will call the recursive count function
 int table::count()
 {
