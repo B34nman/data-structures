@@ -13,17 +13,19 @@ int table::display_23()
 //Now implement the recursive function to display all leaves
 int table::display_23(node23 * root)
 {
-    if(!root) return 0;
-    if(!root->child[0])
+    if(!root)
+        return 0;
+    if(!root->child[0] && !root->child[1] && !root->child[2])
     {
-        cout << "Data Items: " << root->data[0] << ", "
-            << root->data[1] << endl;
+        cout << root->data[0] << " ";
+        if(root->data[1])
+            cout << root->data[1] << " ";
     }
-    return 1 + display_23(root->child[0]) + 
-        display_23(root->child[1]) + 
-        display_23(root->child[2]);
+    display_23(root->child[0]);
+    display_23(root->child[1]);
+    display_23(root->child[2]);
+    return 1;
 }
-
 
 
 // Implement the recursive function to deallocate all items.
@@ -31,14 +33,13 @@ int table::display_23(node23 * root)
 int table::deallocate_23(node23 * & root)
 {
     if(!root) return 0;
-    int count = deallocate_23(root->child[0]) + 
-        deallocate_23(root->child[1]) + 
-        deallocate_23(root->child[2]);
+    deallocate_23(root->child[0]);
+    deallocate_23(root->child[1]);
+    deallocate_23(root->child[2]);
     delete root;
-    root = NULL;
+    root = nullptr;
     return 1;
 }
-
 
 //First write the wrapper functions:
 //Return true if the root's largest value appears more than once
@@ -50,24 +51,18 @@ bool table::find_largest()
     else
         largest = root23->data[1];
 
-    return find_largest(root23, largest);
+    return find_largest(root23->child[0], largest) || find_largest(root23->child[1], largest) || find_largest(root23->child[2], largest);
 }
 
 //Return true if the root's largest value appears more than once
 //Write this function recursively
 bool table::find_largest(node23 * root, int match)
 {
-    if(!root) return 0;
-    for(int i = 0; i < 2; ++i)
-    {
-        if(root->data[i] == match)
-            return true;
-    }
-    return find_largest(root->child[0], match) + 
-        find_largest(root->child[1], match) + 
-        find_largest(root->child[2], match);
+    if(!root) return false;
+    if(root->data[0] == match || root->data[1] == match)
+        return true;
+    return find_largest(root->child[0], match) || find_largest(root->child[1], match) || find_largest(root->child[2], match);
 }
-
 
 //First write the wrapper functions:
 //Copies the argument's tree into the current object's tree
@@ -80,10 +75,12 @@ int table::copy(table & source)
 //Now implement the recursive function to copy the tree
 int table::copy(node23 * & dest_root, node23 * source_root)
 {
-    if(!root23) return 0;
+    if(!source_root) return 0;
+    dest_root = new node23;
     dest_root->data[0] = source_root->data[0];
     dest_root->data[1] = source_root->data[1];
-    return 1 + copy(dest_root->child[0], source_root->child[0]) + 
-        copy(dest_root->child[1], source_root->child[1]) + 
-        copy(dest_root->child[2], source_root->child[2]);
+    copy(dest_root->child[0], source_root->child[0]);
+    copy(dest_root->child[1], source_root->child[1]);
+    copy(dest_root->child[2], source_root->child[2]);
+    return 1;
 }

@@ -15,6 +15,7 @@ int main()
     bool largest = trees.find_largest();
     cout << "More than once? " << largest << endl;
     trees.copy(trees2);
+    trees.display();
 
     return 0;
 }
