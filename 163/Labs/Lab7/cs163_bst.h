@@ -54,7 +54,7 @@ class table
 	int count_pass(node * root, int passed_val);
 	int add_item(node * root, int to_add);
 	int count_no_children(node * root);
-	int average_all_data(node * root, int sum, int count);
+	float average_all_data(node * root, float sum, float count);
 	int count_greater_node(node * root, int rootVal);
 
 	

@@ -56,18 +56,18 @@ int table::count_no_children(node * root)
 
 int table::average_all_data()
 {
-    int sum, count;
-    average_all_data(root, sum, count);
+    float sum = 0, count = 0;
+    sum = average_all_data(root, sum, count);
+    cout << "Count: " << count << endl;
     return sum/count;
 }
 
-int table::average_all_data(node * root, int sum, int count)
+float table::average_all_data(node * root, float sum, float count)
 {
     if(!root) return 0;
-    sum += root->data;
-    count++;
-    average_all_data(root->left, sum, count);
-    average_all_data(root->right, sum, count);
+    count = count + 1;
+    return root->data + average_all_data(root->left, sum, count) + 
+        average_all_data(root->right, sum, count);
 }
 
 //count number of nodes greater than root's data
@@ -83,6 +83,6 @@ int table::count_greater_node(node * root, int rootVal)
         return 1 + count_greater_node(root->left, rootVal)
             + count_greater_node(root->right, rootVal);
     else
-        return 1 + count_greater_node(root->left, rootVal)
+        return count_greater_node(root->left, rootVal)
             + count_greater_node(root->right, rootVal);
 }

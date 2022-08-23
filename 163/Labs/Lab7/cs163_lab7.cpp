@@ -8,6 +8,10 @@ int main()
     BST.display();
 
     /*  PLACE YOUR FUNCTION CALL HERE */
+
+    int average = BST.average_all_data();
+    cout << "sum: " << average << endl;
+
     /* 
     BST.count();
     BST.sum();
@@ -16,7 +20,6 @@ int main()
     BST.display();
     */
 
-    BST.copy(BST);
     BST.display();
 
     return 0;
