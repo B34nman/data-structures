@@ -1,4 +1,4 @@
-# cs163
+# CS163 - Data Structures
 
 This is a repo of basic development/application of the following data strucutures: Stacks, Queues, Trees (BST), Hash Tables, and some Linear Linked Lists.
 
