@@ -33,6 +33,7 @@ graph::~graph()
             delete temp;
         }
     }
+    delete [] adjacency_list;
 }
 
 // creates a vertex with given name and adds it to the array.

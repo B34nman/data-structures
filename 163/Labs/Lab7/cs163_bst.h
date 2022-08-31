@@ -56,7 +56,7 @@ class table
 	int count_no_children(node * root);
 	float average_all_data(node * root, float sum, float count);
 	int count_greater_node(node * root, int rootVal);
-
+	
 	
 	//  ***These are the functions you will be writing recursively!
 	int insert(node * root, int to_add);
