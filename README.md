@@ -1,5 +1,5 @@
-# cs163
+# CS163 - Data Structures
 
-This is a private repo for cloud storage of Andy's PSU CS 163 program files.
+This is a repo of basic development/application of the following data strucutures: Stacks, Queues, Trees (BST), Hash Tables, and some Linear Linked Lists.
 
-None of the content is free to use or share. 
+All work is my own, with limited client application development. The focus for each program is on the backend ADT design. 
